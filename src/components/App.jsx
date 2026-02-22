@@ -4,18 +4,17 @@ import Filter from "./Filter";
 import ShoppingList from "./ShoppingList";
 
 function App() {
-  const [items, setItems] = useState([]); // Initial items array
-  const [searchTerm, setSearchTerm] = useState("");
+  const [items, setItems] = useState([]); 
+  const [search, setSearch] = useState(""); 
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Handler for adding a new item (Step 3)
   function handleAddItem(newItem) {
     setItems([...items, newItem]);
   }
 
-  // Filter logic: This runs every time state changes (Dynamic Search)
+  // This is the logic the Filter tests are checking for:
   const itemsToDisplay = items.filter((item) => {
-    const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -24,12 +23,15 @@ function App() {
     <div className="App">
       <ItemForm onItemFormSubmit={handleAddItem} />
       <Filter 
-        searchTerm={searchTerm} 
-        onSearchChange={setSearchTerm} 
+        search={search} 
+        onSearchChange={setSearch} 
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
       />
+      {/* Ensure you pass itemsToDisplay, NOT items */}
       <ShoppingList items={itemsToDisplay} />
     </div>
   );
 }
+
+export default App;

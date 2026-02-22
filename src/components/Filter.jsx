@@ -1,11 +1,14 @@
-function Filter({ searchTerm, onSearchChange, selectedCategory, onCategoryChange }) {
+import React from "react";
+
+function Filter({ search, onSearchChange, selectedCategory, onCategoryChange }) {
   return (
     <div className="Filter">
       <input
         type="text"
         placeholder="Search..."
-        value={searchTerm} // Controlled value
-        onChange={(e) => onSearchChange(e.target.value)} // Updates App state immediately
+        // The test expects the prop name to be 'search'
+        value={search} 
+        onChange={(e) => onSearchChange(e.target.value)} 
       />
       <select 
         value={selectedCategory} 
@@ -19,3 +22,5 @@ function Filter({ searchTerm, onSearchChange, selectedCategory, onCategoryChange
     </div>
   );
 }
+
+export default Filter; // Fix: Ensure this is exported!

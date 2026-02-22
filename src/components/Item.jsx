@@ -1,37 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
-function ItemForm({ onItemFormSubmit }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    category: "Produce", // Default as per requirements
-    price: ""
-  });
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const newItem = { ...formData, id: Date.now() }; // Add a unique ID
-    onItemFormSubmit(newItem); // Send to App
-    setFormData({ name: "", category: "Produce", price: "" }); // Reset form
-  }
-
+function Item({ item }) {
   return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        name="name" 
-        value={formData.name} 
-        onChange={(e) => setFormData({...formData, name: e.target.value})} 
-      />
-      <select 
-        name="category" 
-        value={formData.category} 
-        onChange={(e) => setFormData({...formData, category: e.target.value})}
-      >
-        <option value="Produce">Produce</option>
-        <option value="Dairy">Dairy</option>
-        <option value="Dessert">Dessert</option>
-      </select>
-      <button type="submit">Add Item</button>
-    </form>
+    <li className={item.isInStock ? "" : "out-of-stock"}>
+      <span>{item.name}</span>
+      <span className="category">{item.category}</span>
+      {/* If the test looks for "Out of Stock" text, keep this: */}
+      {!item.isInStock && <span className="out-of-stock-text">Out of Stock</span>}
+    </li>
   );
 }
 
